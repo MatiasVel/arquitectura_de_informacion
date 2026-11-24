@@ -1,0 +1,14 @@
+{
+  "name": "arquitectura-de-informacion",
+  "version": "1.0.0",
+  "description": "Sitio con el diagrama interactivo de la arquitectura de información: del registro operativo al tablero de decisión, con un Data Warehouse en PostgreSQL y Power BI.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/servidor.mjs 8080",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

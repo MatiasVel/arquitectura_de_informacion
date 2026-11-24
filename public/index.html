@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arquitectura | Arquitectura de información</title>
+  <meta name="description" content="Diagrama interactivo del flujo de información: del registro operativo al tablero de decisión, pasando por un Data Warehouse en PostgreSQL y Power BI.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fuentes/dm-sans-var.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="css/estilos.css">
+  <script defer src="js/comun.js"></script>
+  <script defer src="js/datos/etapas.js"></script>
+  <script defer src="js/datos/terminos.js"></script>
+  <script defer src="js/datos/disposicion.js"></script>
+  <script defer src="js/diagrama.js"></script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <a class="marca" href="index.html">
+      <svg class="marca-simbolo" viewBox="0 0 28 28" aria-hidden="true" focusable="false">
+        <path d="M19 1h3a5 5 0 0 1 5 5v16a5 5 0 0 1-5 5h-3z" fill="#002fa7"/>
+        <rect x="3" y="8" width="9" height="12" rx="1.6" fill="#fff"/>
+        <path d="M12 14h9" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="19" cy="14" r="2.6" fill="#9cc0ff"/>
+      </svg>
+      <span>Arquitectura de información</span>
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="index.html" aria-current="page">Arquitectura<span class="nav-indicador" aria-hidden="true"></span></a>
+      <a href="glosario.html">Glosario</a>
+    </nav>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <section class="escenario armando" id="escenario" aria-labelledby="titulo-pagina">
+      <div class="intro">
+        <h1 id="titulo-pagina">Del registro operativo al tablero de decisión</h1>
+        <div class="intro-fila">
+          <p class="intro-texto">Cómo viaja un dato desde que se carga en la operación diaria hasta que una gerencia lo consulta. Elegí una etapa para ver qué se hace en ella y qué pantalla usa quien trabaja ahí.</p>
+          <p class="narracion" id="narracion" aria-live="polite"></p>
+          <div class="intro-acciones">
+            <button type="button" class="boton boton-claro" id="boton-recorrer">
+              Recorrer las etapas
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+            </button>
+            <!-- Los dos rótulos ocupan la misma celda: el botón no cambia de ancho al alternar. -->
+            <button type="button" class="boton boton-contorno boton-reproducir" id="boton-reproducir">
+              <span class="rotulo" data-rotulo="reproducir">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.6v12.8a.8.8 0 0 0 1.2.7l10.2-6.4a.8.8 0 0 0 0-1.4L9.2 4.9A.8.8 0 0 0 8 5.6z" fill="currentColor"/></svg>
+                Reproducir el flujo
+              </span>
+              <span class="rotulo" data-rotulo="detener">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6.5" y="6.5" width="11" height="11" rx="1.6" fill="currentColor"/></svg>
+                Detener
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="plano" id="plano">
+        <svg class="diagrama" id="diagrama" viewBox="0 0 1440 596" preserveAspectRatio="xMidYMid meet" role="group" aria-labelledby="diagrama-titulo" aria-describedby="diagrama-descripcion">
+          <title id="diagrama-titulo">Diagrama de la arquitectura de información</title>
+          <desc id="diagrama-descripcion">En la red interna de la organización, el registro operativo carga la base de datos transaccional, que se replica cada día en un Data Warehouse en PostgreSQL con cuatro capas: extracción, cálculo, consumo agregado y consumo de detalle. Power BI Desktop toma esos datos y los archivos del datalake. El gateway conecta la red interna con la nube, donde Power BI Service publica los tableros en las áreas de trabajo y en SharePoint para las gerencias.</desc>
+          <g id="diagrama-capa"></g>
+        </svg>
+      </div>
+
+      <div class="velo" id="velo" hidden></div>
+
+      <aside class="panel" id="panel" aria-labelledby="panel-titulo" aria-hidden="true">
+        <div class="panel-barra">
+          <ol class="progreso" id="progreso" aria-label="Etapas del recorrido"></ol>
+          <button type="button" class="boton-icono" id="panel-cerrar" aria-label="Cerrar el detalle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div class="panel-cuerpo" id="panel-cuerpo"></div>
+        <div class="panel-pie">
+          <button type="button" class="boton-paso anterior" id="paso-anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg>
+            <span><small>Anterior</small><b></b></span>
+          </button>
+          <button type="button" class="boton-paso siguiente" id="paso-siguiente">
+            <span><small>Siguiente</small><b></b></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Basado en el paper «Del registro operativo al tablero de decisión: arquitectura y flujo de información de un Data Warehouse integrado con Power BI».</p>
+    <p>La organización está anonimizada: el sitio muestra la arquitectura, no datos reales.</p>
+  </footer>
+
+  <dialog class="visor" id="visor" aria-labelledby="visor-titulo">
+    <div class="visor-barra">
+      <p id="visor-titulo"></p>
+      <button type="button" class="boton-icono" id="visor-cerrar" aria-label="Cerrar la captura">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <figure class="visor-figura">
+      <img id="visor-imagen" src="data:," alt="">
+    </figure>
+    <div class="visor-pie">
+      <button type="button" class="boton-icono" id="visor-anterior" aria-label="Captura anterior" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <p id="visor-pie"></p>
+      <button type="button" class="boton-icono" id="visor-siguiente" aria-label="Captura siguiente" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </dialog>
+
+  <noscript>
+    <p class="sin-js">El diagrama interactivo necesita JavaScript habilitado.</p>
+  </noscript>
+</body>
+</html>
