@@ -349,11 +349,13 @@ code {
   min-height: calc(100svh - var(--alto-encabezado));
 }
 
+/* La introducción no entra en la franja que ocupa el panel lateral al abrirse:
+   así los botones quedan siempre a la vista, con el panel abierto o cerrado. */
 .intro {
   position: relative;
   z-index: 3;
   padding: clamp(18px, 3.2vh, 36px) var(--margen) clamp(6px, 1.4vh, 14px);
-  max-width: min(1120px, 76%);
+  max-width: min(1120px, calc(100% - var(--ancho-panel)));
   pointer-events: none;
 }
 
@@ -370,16 +372,22 @@ code {
   text-wrap: balance;
 }
 
+/* Dos columnas: a la izquierda el texto, a la derecha los botones, uno arriba del otro.
+   La narración ocupa la misma celda que el texto y lo reemplaza mientras se reproduce
+   el flujo: como no puede salir de su columna, nunca pasa por debajo de los botones. */
 .intro-fila {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
   gap: 14px 28px;
 }
 
+.intro-texto,
+.narracion {
+  grid-area: 1 / 1;
+}
+
 .intro-texto {
-  flex: 1 1 420px;
   max-width: 64ch;
   margin: 0;
   color: var(--tinta-suave);
@@ -388,16 +396,15 @@ code {
   transition: opacity 0.3s;
 }
 
+/* En una grilla de una columna los botones toman el ancho del más largo:
+   quedan del mismo tamaño, alineados. */
 .intro-acciones {
-  display: flex;
-  flex-wrap: wrap;
+  grid-area: 1 / 2;
+  display: grid;
   gap: 10px;
 }
 
 .narracion {
-  position: absolute;
-  left: 0;
-  bottom: 0;
   max-width: 64ch;
   margin: 0;
   color: var(--blanco);
@@ -1569,17 +1576,19 @@ kbd {
   }
 }
 
+/* En el celular no hay lugar al costado: los botones pasan debajo del texto,
+   uno arriba del otro y a todo el ancho. */
 @media (max-width: 759px) {
   .intro {
     max-width: none;
   }
 
-  .intro-acciones {
-    width: 100%;
+  .intro-fila {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .intro-acciones .boton {
-    flex: 1 1 auto;
+  .intro-acciones {
+    grid-area: 2 / 1;
   }
 
   .ficha > div {
