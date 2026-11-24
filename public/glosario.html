@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glosario | Arquitectura de información</title>
+  <meta name="description" content="Los términos del flujo de información, del registro operativo al tablero de decisión: Data Warehouse, vistas materializadas, gateway, modelo semántico y más.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fuentes/dm-sans-var.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="css/estilos.css">
+  <script defer src="js/comun.js"></script>
+  <script defer src="js/datos/etapas.js"></script>
+  <script defer src="js/datos/terminos.js"></script>
+  <script defer src="js/glosario.js"></script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <a class="marca" href="index.html">
+      <svg class="marca-simbolo" viewBox="0 0 28 28" aria-hidden="true" focusable="false">
+        <path d="M19 1h3a5 5 0 0 1 5 5v16a5 5 0 0 1-5 5h-3z" fill="#002fa7"/>
+        <rect x="3" y="8" width="9" height="12" rx="1.6" fill="#fff"/>
+        <path d="M12 14h9" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="19" cy="14" r="2.6" fill="#9cc0ff"/>
+      </svg>
+      <span>Arquitectura de información</span>
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="index.html">Arquitectura</a>
+      <a href="glosario.html" aria-current="page">Glosario<span class="nav-indicador" aria-hidden="true"></span></a>
+    </nav>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <section class="glosario-cabecera" aria-labelledby="titulo-glosario">
+      <div class="glosario-cabecera-interior">
+        <h1 id="titulo-glosario">Glosario</h1>
+        <p>Los términos que aparecen en el diagrama, explicados en pocas palabras. Cada uno lleva a la etapa donde se usa.</p>
+        <form class="buscador" role="search" id="form-buscar">
+          <label for="buscar">Buscar un término</label>
+          <input id="buscar" type="search" autocomplete="off" spellcheck="false" placeholder="Por ejemplo: vista materializada">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+        </form>
+        <div class="filtros" id="filtros" role="group" aria-label="Filtrar por tema"></div>
+      </div>
+    </section>
+
+    <section class="glosario-cuerpo" aria-label="Términos">
+      <p class="glosario-cuenta" id="cuenta" role="status"></p>
+      <div class="glosario-lista" id="lista"></div>
+      <div class="glosario-vacio" id="vacio" hidden>
+        <p id="vacio-texto"></p>
+        <button type="button" class="boton boton-azul" id="limpiar">Ver todos los términos</button>
+      </div>
+
+      <section class="referencias" aria-labelledby="titulo-referencias">
+        <h2 id="titulo-referencias">Referencias del paper</h2>
+        <ol id="referencias"></ol>
+      </section>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Basado en el paper «Del registro operativo al tablero de decisión: arquitectura y flujo de información de un Data Warehouse integrado con Power BI».</p>
+    <p>La organización está anonimizada: el sitio muestra la arquitectura, no datos reales.</p>
+  </footer>
+
+  <noscript>
+    <p class="sin-js">El glosario necesita JavaScript habilitado para mostrarse.</p>
+  </noscript>
+</body>
+</html>
